@@ -60,10 +60,22 @@ public class NumberTriangle {
      *
      * Hint: think recursively and use the idea of partial tracing from first year :)
      *
-     * Note: a NumberTriangle contains at least one value.
+     * Note: a NumberTriangle contains a t least one value.
      */
     public void maxSumPath() {
         // for fun [not for credit]:
+        int sum_so_far = root;
+        if (this.left.isLeaf() && this.right.isLeaf())
+            return;
+        else {
+            if (this.left.root >= this.right.root) {
+                sum_so_far += this.left.root;
+            }
+            if (this.left.root < this.right.root) {
+                sum_so_far += this.right.root;
+            }
+        }
+        root = sum_so_far;
     }
 
 
@@ -89,6 +101,18 @@ public class NumberTriangle {
      */
     public int retrieve(String path) {
         // TODO implement this method
+        int rootValue = root;
+        if(path.equals(""))
+            return rootValue;
+        else {
+            char firstChar = path.charAt(0);
+            if (firstChar == 'l') {
+                return left.retrieve(path.substring(1));
+            }
+            else if (firstChar == 'r')  {
+                return right.retrieve(path.substring(1));
+            }
+        }
         return -1;
     }
 
